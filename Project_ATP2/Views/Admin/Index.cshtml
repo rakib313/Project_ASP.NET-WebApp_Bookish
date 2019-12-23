@@ -1,0 +1,31 @@
+﻿@model Project_ATP2.Models.CustomModel.RAdminDashboard
+@{
+    ViewBag.Title = "Index";
+    Layout = "/Views/Shared/_ManagerLayout.cshtml";
+}
+
+<h2>Index</h2>
+Welcome to Manager's page form AdminController
+
+<h3>Total Money earned: @Model.TotalMoneyearned</h3>
+<h3>Today Money earned: @Model.TodayMoney</h3>
+<h3>Total Order completed: @Model.TotalOrderComplete</h3>
+<h3>Today order placed: @Model.TodayOrderPlaced</h3>
+<h3>Today order completed: @Model.TodayOrder</h3>
+<h3>Total registered customers: @Model.TotalCustomer</h3>
+<h3>Top Books</h3>
+<table class="table">
+    <tr>
+        <th>Book</th>
+        <th>Author</th>
+        <th>Price</th>
+    </tr>
+    @foreach(var item in Model.TopBooks)
+    {
+        <tr>
+            <td>@item.Title</td>
+            <td>@item.Author.Name</td>
+            <td>@item.Price</td>
+        </tr>
+    }
+</table>

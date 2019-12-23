@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipping Manager</title>
+    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/Site.css" rel="stylesheet" />
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Shipping Manager Dashboard", "Dashboard", "ShippingManager", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Home Page", "Index", "ShippingManager", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+            <div class="navbar-collapse collapse">
+                @*<ul class="nav navbar-nav">
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">My Account</a></li>
+                    </ul>*@
+
+                <ul class="nav navbar-nav navbar-right">
+                    @*<li><a href="#">Link</a></li>*@
+
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li class="form-control">@User.Identity.Name</li>
+
+                                    <li><a href="">Post an Ad</a></li>
+                                    <li><a href="">My Ads</a></li>
+                                    <li><a href="">Edit Profile</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/Account/Logout">Logout</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="/Account/Login">Login</a></li>
+                        }
+                    }
+
+
+
+
+                </ul>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Bookies</p>
+        </footer>
+    </div>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Project_ATP2.Models.Order>
+
+@{
+    ViewBag.Title = "MyOrder";
+    Layout = "/Views/Shared/_HomeCustomerLayout.cshtml";
+}
+
+<h2>My Order</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Deliver To")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Area)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayName("Date")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Coupon.CouponKeyword)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Area)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Coupon.CouponKeyword)
+        </td>
+        <td>
+            @if (item.Status == "Pending")
+            {
+                @Html.ActionLink("Canceled", "MyOrderDelete", new { id = item.Id })
+            }
+        </td>
+    </tr>
+}
+
+</table>

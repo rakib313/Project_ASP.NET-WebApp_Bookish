@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Project_ATP2.Models.Cart>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "/Views/Shared/_HomeCustomerLayout.cshtml";
+}
+
+<input type="hidden" id="User-Id" value="@ViewBag.User_Id" />
+
+<div class="container">
+    <div class="col-md-9">
+        <div class="container-fluid table-bordered table-responsive" style="padding: 15px;">
+
+
+            <div class="container-fluid" id="CartView">
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-3 table-bordered" style="padding-top: 15px; margin-top:40px">
+        <h4>Apply Coupon Code</h4>
+        <hr />
+        <p id="CouponValidation"></p>
+        <hr />
+        <form method="post" action="/Cart/Order">
+            <div class="input-group">
+                <input type="text" id="CouponKey" name="CouponKey" class="form-control" placeholder="Search for...">
+                <input type="hidden" id="CouponPercentage" name="CouponPercentage" value="" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" onclick="checkCoupon()" type="button">Apply!</button>
+                </span>
+            </div>
+
+            <p id="CouponValidation"></p>
+            <hr />
+            <h4>Checkout summery</h4>
+            <hr />
+            <span>Subtotal: </span><span id="Subtotal"></span>
+            <span>TK.</span>
+            <hr />
+            <span>Shipping: 40TK.</span>
+            <hr />
+            <span>Total: </span><span id="Total"></span>TK.
+            <hr />
+            <span>Payable Total: </span><span id="Payable-Total"></span>TK.
+            <hr />
+            <input type="submit" class="btn-default" id="btnSubmit" style="background-color:orange;" value="Go to Shipping Page" />
+            @*<a href="/Cart/Order">Go to Shipping Page</a>*@
+            <hr />
+        </form>
+    </div>
+
+</div>
+
+
+<script src="/JS/CartJS.js"></script>

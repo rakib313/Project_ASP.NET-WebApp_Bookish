@@ -1,0 +1,118 @@
+﻿@model Project_ATP2.Models.CustomModel.SignUpUser
+
+@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/Shared/_HomeCustomerLayout.cshtml";
+}
+
+<h2>SignUp</h2>
+
+@using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return Validation()" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+
+
+
+
+    <h4>User</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.EditorFor(model => model.Name, new { @class = "form-control" })*@
+            <input class="form-control" type="text" id="Name" name="Name" value="">
+            @Html.ValidationMessageFor(model => model, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Password</label>
+        <div class="col-md-10">
+            @*<input type="password" name="@Model.Password" class="form-control" />*@
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Confirm Password</label>
+        <div class="col-md-10">
+            @*<input type="password" name="@Model.ConfirmPassword" class="form-control" />*@
+            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+            @*<input type="date" name="@Model.DOB" class="form-control"/>*@
+            @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })*@
+            <input class="form-control" type="text" id="PhoneNumber" name="PhoneNumber" value="">
+            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Profile Image</label>
+        <div class="col-md-10">
+            @*@Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" ,@type="file"} })*@
+            <input type="file" name="Image" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Area</label>
+        <div class="col-md-10">
+            <select id="Area" name="Area" onchange="" class="form-control" required>
+                <option value="">--Please select Area--</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/JS/Validation.js"></script>

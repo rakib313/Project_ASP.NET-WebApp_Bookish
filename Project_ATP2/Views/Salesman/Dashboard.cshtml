@@ -1,0 +1,452 @@
+﻿
+@model Project_ATP2.Models.Order
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_SalesmanLayout.cshtml";
+}
+
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-1.9.0.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script>
+    var name = '@Model.Name';
+    var phone = '@Model.PhoneNumber';
+    var address = '@Model.Address';
+    var area = '@Model.Area';
+   // var quantity = Model.QuantityOrdered;
+
+    //var stock = ViewBag.AvailableStock;
+
+    //var price = ViewBag.BookPrice;
+    //var cupon = ViewBag.Cupon;
+
+
+    $(document).ready(function () {
+
+
+        $("#LebelName").click(function () {
+            $("#LebelName").hide();
+            $("#TextName").show();
+            $("#CustomerName").val(name);
+        });
+
+        $("#LebelPhoneNumber").click(function () {
+            $("#LebelPhoneNumber").hide();
+            $("#TextPhoneNumber").show();
+            $("#PhoneNumber").val(phone);
+        });
+        $("#LebelArea").click(function () {
+            $("#LebelArea").hide();
+            $("#DropDownArea").show();
+            $("#Area").val(area);
+
+        });
+
+        $("#LebelAddress").click(function () {
+            $("#LebelAddress").hide();
+            $("#TextAddress").show();
+            $("#Address").val(address);
+        });
+
+        //update quantity
+        //$("#LebelQ").click(function () {
+        //    //alert(stock);
+        //    $("#LebelQ").hide();
+        //    $("#TextQ").show();
+        //    $("#Q").text(quantity);
+        //});
+
+        //customer name button click
+        $("#btnName").click(function () {
+            var ok = ValidationName($("#CustomerName").val());
+            if (ok == false) return;
+            //alert($("#CustomerName").val());
+            $("#TextName").hide();
+            $("#LebelName").text($("#CustomerName").val());
+            $("#LebelName").show();
+            $("#FormName").val($("#CustomerName").val());
+
+
+        });
+        // phone number button
+        $("#btnPhone").click(function () {
+            var ok = ValidationPhone($("#PhoneNumber").val());
+            if (ok == false) return;
+            //alert($("#PhoneNumber").val());
+            $("#TextPhoneNumber").hide();
+            $("#LebelPhoneNumber").text($("#PhoneNumber").val());
+            $("#LebelPhoneNumber").show();
+            $("#FormPhone").val($("#PhoneNumber").val());
+
+        });
+        //area button
+        $("#btnArea").click(function () {
+            var ok = ValidationArea();
+            if (ok.length==0) return;
+            $("#DropDownArea").hide();
+            $("#LebelArea").text(ok);
+            $("#LebelArea").show();
+            $("#FormArea").val($('#Area').find(":selected").text());
+            $("#FormArea").val($('#Area').find(":selected").text());
+
+        });
+
+        //Address button
+        $("#btnAddress").click(function () {
+            var ok = ValidationAddress($("#Address").val());
+            if (ok==false) return;
+            $("#TextAddress").hide();
+            $("#LebelAddress").text($("#Address").val());
+            $("#LebelAddress").show();
+            $("#FormAddress").val($("#Address").val());
+
+        });
+
+
+       // $("#btnQ").click(function () {
+       //     $("#TextQ").hide();
+       //     $("#LebelQ").text($("#Q").text());
+       //     $("#LebelQ").show();
+       //     $("#FormQuantity").val($("#Q").text());
+
+       //     $("#FormSubtotal").val($("#lebelSubtotal").text());
+       //     $("#FormActual").val($("#lebelActualPrice").text());
+       // });
+
+       ////book quantity
+       // $("#btnNeg").click(function () {
+       //     var x = $("#Q").text();
+       //     var subtotal = price;
+       //     var actual = price;
+       //     if (x > 1) {
+       //         x--;
+       //         $("#Q").text(x);
+       //         subtotal = price * x;
+       //         actual = subtotal - ((subtotal * cupon) / 100.0);
+       //         $("#lebelSubtotal").text(subtotal);
+       //         $("#lebelActualPrice").text(actual);
+       //     }
+
+       // });
+       // $("#btnPos").click(function () {
+       //     var x = $("#Q").text();
+       //     var subtotal = price;
+       //     var actual = price;
+
+       //     if (x < stock) {
+       //         x++;
+       //         $("#Q").text(x);
+       //         subtotal = price * x;
+       //         actual = subtotal - ((subtotal * cupon) / 100.0);
+       //         $("#lebelSubtotal").text(subtotal);
+       //         $("#lebelActualPrice").text(actual);
+       //     }
+       // });
+
+    });
+
+
+    //name validation
+    function ValidationName(s) {
+        s = s.trim();
+        if (s.length < 2) {
+            alert("Name length should be atleast two");
+            $("#CustomerName").val(name);
+            return false;
+        }
+
+        for (var i = 0; i < s.length - 1; i++) {
+            if (s[i] == ' ' && s[i] == s[i + 1]) {
+                alert("Multiple space is not allowed");
+                $("#CustomerName").val(name);
+                return false;
+            }
+        }
+        for (var i = 0; i < s.length; i++) {
+            if (s[i] == '-' || s[i] == '.' ||s[i]==' ') continue;
+            else if ((s[i] >= 'a' && s[i] <= 'z') || (s[i] >= 'A' && s[i] <= 'Z')) {
+                continue;
+
+            }
+            else {
+                alert("Name can only contain alphabet or (.) or (-)");
+                $("#CustomerName").val(name);
+                return false;
+            }
+        }
+        name = $("#CustomerName").val();
+    }
+
+    // phone number validation
+    function ValidationPhone(s) {
+        s = s.trim();
+        if (s.length !=11) {
+            $("#PhoneNumber").val(phone);
+            alert("Phone number length must be 11");
+            return false;
+        }
+        for (var i = 0; i < s.length; i++) {
+            if (s[i] >= '0' && s[i] <= '9') continue;
+            else {
+                $("#PhoneNumber").val(phone);
+                alert("Phone Number must be from (0-9)");
+                return false;
+            }
+        }
+        if (s[2] == '0' || s[2] == '1' || s[2] == '2') {
+            $("#PhoneNumber").val(phone);
+            alert("Invalid Phone Number");
+            return false;
+        }
+        if (s[0] != '0') {
+            $("#PhoneNumber").val(phone);
+            alert("Invalid Phone Number");
+            return false;
+        }
+        if (s[1] != '1') {
+            $("#PhoneNumber").val(phone);
+            alert("Invalid Phone Number");
+            return false;
+        }
+        phone = $("#PhoneNumber").val();
+    }
+
+    //area validation
+    function ValidationArea() {
+        var AreaName = $('#Area').find(":selected").text();
+        area = AreaName;
+        return AreaName;
+    }
+
+    function ValidationAddress(s) {
+        s = s.trim();
+        if (s.length == 0) {
+            alert("Adrress filed can't be empty");
+            $("#Address").val(address);
+            return false;
+        }
+        address = $("#Address").val();
+    }
+
+    function Cancel(s) {
+        $.post("Cancel", { s }, function (data) {
+            alert(data);
+            $("#x").html("");
+            window.location.replace("Index");
+
+        })
+    }
+</script>
+<style>
+    dt, dd {
+        display: block;
+        float: none;
+        margin-top: 20px;
+    }
+
+    dt {
+        clear: both;
+    }
+</style>
+@using (Html.BeginForm("Dashboard", "Salesman", FormMethod.Post))
+{
+    <input type="hidden" name="XD" value="@Model.Id" />
+
+    <h2>Order Details</h2>
+
+
+    <div class="container" id="x">
+
+        <hr />
+
+        <dl class="dl-horizontal">
+
+
+            <dt style="margin:0px;">
+                @Html.DisplayName("Name: ")
+            </dt>
+            <dd>
+                <lebel id="LebelName">@Model.Name</lebel>
+                <div id="TextName" hidden>
+                    <input type="text" id="CustomerName" class="form-control" />
+                    <input type="button" id="btnName" value="Save" class="btn btn-group-sm" />
+                </div>
+                <input type="hidden" name="CustomerName" id="FormName" value="@Model.Name" />
+
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Phone No: ")
+            </dt>
+
+            <dd>
+                <lebel id="LebelPhoneNumber">@Model.PhoneNumber</lebel>
+                <div id="TextPhoneNumber" hidden>
+                    <input type="text" class="form-control" id="PhoneNumber" />
+                    <input type="button" id="btnPhone" value="Save" class="btn btn-group-sm" />
+                </div>
+                <input type="hidden" name="CustomerPhone" id="FormPhone" value="@Model.PhoneNumber" />
+            </dd>
+            <dt>
+                @Html.DisplayName("Area: ")
+            </dt>
+
+            <dd>
+                <lebel id="LebelArea">@Model.Area</lebel>
+                <div id="DropDownArea" hidden>
+                    <select class="form-control" id="Area">
+                        <option selected disabled value="none">--Select Area--</option>
+                        @foreach (var area in ViewBag.Area)
+                        {
+                            <option value="@area">@area</option>
+                        }
+                    </select>
+                    <input type="button" id="btnArea" value="Save" class="btn btn-group-sm" />
+                </div>
+                <input type="hidden" name="CustomerArea" id="FormArea" value="@Model.Area" />
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Address: ")
+            </dt>
+
+            <dd>
+                <lebel id="LebelAddress">@Model.Address</lebel>
+                <div id="TextAddress" hidden>
+                    <input type="text" class="form-control" id="Address" />
+                    <input type="button" id="btnAddress" value="Save" class="btn btn-group-sm" />
+                </div>
+                <input type="hidden" name="CustomerAddress" id="FormAddress" value="@Model.Address" />
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Status: ")
+            </dt>
+
+            <dd>
+                <lebel>@Model.Status</lebel>
+
+            </dd>
+
+            <dt style="margin-left:500px;margin-top:20px;">
+                @Html.DisplayName("Book Deails ")
+            </dt>
+
+            <dd>
+                <hr />
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center">
+                                @Html.DisplayName("Book Name ")
+                            </th>
+                            <th style="text-align:center">
+                                @Html.DisplayName("Book Quantity Ordered ")
+                            </th>
+                            <th style="text-align:center">
+                                @Html.DisplayName("Subtotal ")
+                            </th>
+                            <th style="text-align:center">
+                                @Html.DisplayName("Actual Price ")
+                            </th>
+
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model.OrderDatas)
+                    {
+
+                        <tbody>
+                            <tr>
+                                <td style="text-align:center">
+                                    <label>@item.Book.Title</label>
+                                </td>
+                                <td style="text-align:center">
+                                    <lebel id="LebelQ">@item.QuantityOrdered</lebel>
+                                </td>
+                                <td style="text-align:center">
+                                    <label>@item.Subtotal</label>
+                                </td>
+                                <td style="text-align:center">
+                                    <label>@item.ActualPrice</label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+                <hr />
+            </dd>
+
+            <!--  <dt>
+        Html.DisplayName("Book Quantity: ")
+    </dt>
+
+    <dd>
+        <lebel id="LebelQ">Model.Name</lebel>
+        <div id="TextQ" hidden>
+            <input type="button" id="btnNeg" value="-" />| <label id="Q" style="font-size:larger"> Model.Area </label>  |<input type="button" id="btnPos" value="+" />
+            <br />
+            <input type="button" id="btnQ" value="save" />
+        </div>
+        <input type="hidden" name="QuantityOrdered" id="FormQuantity" value="Model.Area" />
+    </dd>
+              -->
+            <dt>
+                @Html.DisplayName("Cupon Discount: ")
+            </dt>
+
+            <dd>
+                <label>@ViewBag.Cupon</label>
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Total Price: ")
+            </dt>
+
+            <dd>
+                <lebel id="lebelSubtotal">@ViewBag.Price</lebel>
+                <input type="hidden" name="Subtotal" id="FormSubtotal" value="@ViewBag.Price" />
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Amount To Pay: ")
+            </dt>
+
+            <dd>
+                @{ 
+                    var total = ViewBag.Price - (( ViewBag.Price* ViewBag.Cupon) / 100.0);
+                }
+                <lebel id="lebelSubtotal">@total</lebel>
+                <input type="hidden" name="Subtotal" id="FormSubtotal" value="@total" />
+            </dd>
+
+
+
+            <dt>
+                @Html.DisplayName("Date: ")
+            </dt>
+
+            <dd>
+                <lebel>@Model.AddedDate</lebel>
+            </dd>
+            <dt>
+                <input type="submit" value="Confirm Order" class="btn btn-primary" />
+                <br />
+                <br />
+                
+                <button type="button" value="@Model.Id" onclick="Cancel(this.value)" class="btn btn-danger">Cancel</button>
+                
+            </dt>
+
+
+        </dl>
+
+
+
+
+    </div>
+
+
+}

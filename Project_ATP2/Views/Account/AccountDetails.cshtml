@@ -1,0 +1,71 @@
+﻿@model Project_ATP2.Models.User
+
+@{
+    ViewBag.Title = "AccountDetails";
+    Layout = "~/Views/Shared/_HomeCustomerLayout.cshtml";
+}
+
+<h2>AccountDetails</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DOB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DOB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            <img src="/Image/ProfilePicture/@Model.Image" height="100" width="80"/>
+        </dd>
+
+       
+
+        
+        
+
+    </dl>
+</div>
+<p>
+    <button class="btn btn-default">@Html.ActionLink("Edit profile", "EditAccount", "Account", new { id = Model.Id })</button>
+</p>

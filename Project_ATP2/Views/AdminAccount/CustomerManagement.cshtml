@@ -1,0 +1,78 @@
+﻿@model Project_ATP2.Models.User
+
+@{
+    ViewBag.Title = "CustomerManagement";
+    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+}
+
+<h2>CustomerManagement</h2>
+
+
+<form action="/AdminAccount/CustomerManagementSearch" method="post">
+    <div class="container">
+        <input type="text" class="form-control" placeholder="Search for..." id="searchStr" name="searchStr" value="" required>
+        <span class="input-group-btn">
+            <button  class="btn btn-default" type="submit" id="Search" name="Search">Go!</button>
+        </span>
+    </div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.Display("Image")
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Email)
+            </td>
+            <td>
+                <img src="~/Image/ProfilePicture/@Model.Image" alt="Alternate Text" />
+            </td>
+            <td>
+               
+            </td>
+            <td>
+                @*<button value="@item.">Apply</button>*@
+            </td>
+        </tr>
+
+    </table>
+</form>
+
+
+<script>
+    function changeStatus(str, type, Email) {
+        var obj = {
+            Status: str,
+            Email: Email
+        };
+        $.ajax({
+            url: "/AdminAccount/ChangeStatus",
+            method: "POST",
+            data: {
+                obj: obj
+            },
+            success: function (data) {
+                alert("Successfully "+str);
+                
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        });
+    }
+</script>

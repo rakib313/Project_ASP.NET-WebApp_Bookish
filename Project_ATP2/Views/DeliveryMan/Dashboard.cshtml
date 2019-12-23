@@ -1,0 +1,177 @@
+﻿@model IEnumerable<Project_ATP2.Models.DeliveryTask>
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_DeliveryManLayout.cshtml";
+}
+
+<h2>Dashboard</h2>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/jquery-1.9.0.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<table class="table table-bordered" id="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Customer Name")
+            </th>
+            <th>
+                @Html.DisplayName("Phone Number")
+            </th>
+            <th>
+                @Html.DisplayName("Area")
+            </th>
+            <th>
+                @Html.DisplayName("Address")
+            </th>
+            <th>
+                @Html.DisplayName("Order Date")
+            </th>
+            <th>
+               @Html.DisplayName("Book list")
+            </th>
+            <th>
+                @Html.DisplayName("Price")
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order.Area)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order.AddedDate)
+            </td>
+            <td>
+                @Html.ActionLink("Show Book list", "OrderBookList", new { id = item.Order_Id }) 
+            </td>
+            <td>
+                @{ 
+                    var price = 0.0;
+                    var c = 0.0;
+                    foreach(var x in item.Order.OrderDatas)
+                    {
+                        price += x.ActualPrice;
+                    }
+                    if (item.Order.Coupon_Id == null)
+                    {
+                        c = 0.0;
+                    }
+                    else
+                    {
+                        c = item.Order.Coupon.Percentage;
+                    }
+                    var total = price - ((price * c) / 100.0);
+                }
+                <label>@total</label>
+            </td>
+            <td>
+                @{
+                    if (item.Status == "Recieved")
+                    {
+                        <button type="button" class="btn btn-info" id="btn" value="@item.Order_Id">Deliver</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-info" id="btn" value="@item.Order_Id">Recieve</button>
+                    }
+                }
+                <button type="button" class="btn btn-danger" id="btn1" value="@item.Order_Id" >Return</button>
+
+
+
+            </td>
+        </tr>
+    </tbody>
+    }
+
+</table>
+
+<script>
+
+    var done = false;
+    // returned
+    $('#table tbody').on('click', '#btn1', function () {
+        alert("Return order");
+        var OrderId = $(this).val();
+        CheckStatus(OrderId);
+      
+        
+        
+        
+
+        //$(this).closest('tr').remove();
+    });
+
+    $('#table tbody').on('click', '#btn', function () {
+        var OrderId = $(this).val();
+        var text = $(this).html();
+        if (text == "Recieve") {
+            saveBookRecieve(OrderId);
+            $(this).html("Deliver");
+        }
+        else if (text == "Deliver") {
+            saveOrderDeliver(OrderId);
+            $(this).html("Delivered");
+            $(this).prop("disabled", true);
+            
+        }
+        
+        //$(this).closest('tr').remove();
+    });
+
+    function CheckStatus(s) {
+        $.post("CheckStatus", { s }, function (data) {
+            //alert(data);
+            if (data == "Recieved") {
+                OrderReturn(s);
+                window.location.replace("Index");
+            }
+            else {
+                alert("Recieved Order first");
+            }
+        })
+    }
+
+    function saveBookRecieve(s) {  
+        alert("Book Recieved: "+s);
+        $.post("RecieveOrderBook", {s}, function (data) {
+            alert(data);
+        })
+    }
+    function saveOrderDeliver(s) {
+        alert("confirm deliver: "+s);
+        $.post("OrderDelivered", {s}, function (data) {
+            alert(data);
+        })
+    }
+
+    function OrderReturn(s) {
+        alert("Order Return: " + s);
+        $.post("ReturnOrder", { s }, function (data) {
+            alert(data);
+        })
+    }
+    
+
+   
+
+</script>

@@ -1,0 +1,201 @@
+﻿@model Project_ATP2.Models.Book
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "/Views/Shared/_HomeCustomerLayout.cshtml";
+}
+<script src="/JS/AdsDetails.js"></script>
+<h2>Details</h2>
+
+
+<div class="container">
+    <h4>Book</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Summary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Summary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ISBN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ISBN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Edition)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Edition)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfPage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfPage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Language)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Language)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            <img src="@Model.Image" alt="Image not avaiable" />
+        </dd>
+
+        <dt>
+            Author
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author.Name)
+        </dd>
+
+        <dt>
+            Category
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+
+        <dt>
+            Publisher
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Publisher.Name)
+        </dd>
+
+    </dl>
+
+</div>
+<hr />
+
+<div class="container">
+    <div class="">
+        <button onclick='addToCart(this.value, this)' id='Cart' value="@Model.Id">Add to Cart</button>
+        
+    </div>
+</div>
+
+
+<hr />
+<div class="container text-center">
+    <label id="" class="glyphicon glyphicon-remove-circle text-danger">Report incorrect information</label>
+    <div class="container-fluid">
+        <input id="Report" name="Report" type="text" class="" placeholder="Write a report..." aria-describedby="sizing-addon1">
+        <input type="button" onclick="btnClick(this.value, this)" value="Submit Report" />
+        <div id="ReportRes"></div>
+        <input id="Id" type="hidden" value="@Model.Id" />
+    </div>
+        
+    
+</div>
+<hr />
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        <div class="container ">
+            <h4>Rate book:</h4>
+            
+            <select name="RateStar" id='RateStar' class="dropdown">
+                @{
+                    if (ViewBag.Stars == "")
+                    {
+                        <option value="">--Rate--</option>
+                    }
+                    else
+                    {
+                        <option value="@ViewBag.Star">@ViewBag.Star</option>
+                    }
+                }
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+            <input class="" type="text" value="@ViewBag.Review" placeholder="Add a review" id="ReviewStr" />
+            <input type="button" value="Add" id="Add" onclick="btnClick(this.value, this)" />
+            <input type="hidden" value="@ViewBag.User_Id" id="User_Id" />
+            <div id="CommentReview"></div>
+        </div>
+        <hr />
+    }
+}
+
+<div class="container ">
+    <h4>Review:</h4>
+    <table class="table-bordered">
+        <tr>
+            <th>Name</th>
+            <th>Picture</th>
+            <th>Stars</th>
+            <th>Review</th>
+        </tr>
+        @{ 
+            foreach(var item in Model.Ratings)
+            {
+                <tr>
+                    <td>@item.User.Name</td>
+                    <td><img src="@item.User.Image" alt="Not available" /></td>
+                    <td>@item.Stars</td>
+                    <td>@item.Review</td>
+                </tr>
+            }
+        }
+    </table>
+
+</div>
+<hr />
+<div>
+    <h4>Reviews</h4>
+</div>
+
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+

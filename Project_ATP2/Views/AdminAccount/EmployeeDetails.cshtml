@@ -1,0 +1,112 @@
+﻿@model Project_ATP2.Models.CustomModel.EmployeeDetails
+
+@{
+    ViewBag.Title = "EmployeeDetails";
+    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+}
+
+<h2>EmployeeDetails</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.DOB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.DOB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.AddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.AddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.ModifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.ModifiedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.Role.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Role.Name)
+        </dd>
+
+        <dt>
+            Today
+        </dt>
+        <dd>
+            @Model.Today
+        </dd>
+
+        <dt>
+            Last 7 days
+        </dt>
+        <dd>
+            @Model.Last7
+        </dd>
+
+        <dt>
+            Lifetime
+        </dt>
+        <dd>
+            @Model.Total
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>

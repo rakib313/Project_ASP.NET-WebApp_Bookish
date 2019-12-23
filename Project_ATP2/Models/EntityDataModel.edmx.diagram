@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8338bfd4ebac46d4b77f65f686927a27" Name="Diagram1">
+        <EntityTypeShape EntityType="ProjectDBModel.Author" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.Book" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.Buy" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.Cart" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.Category" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.Coupon" Width="1.5" PointX="3.75" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.Customer" Width="1.5" PointX="8.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.DeliveryMan" Width="1.5" PointX="8.25" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.DeliveryTask" Width="1.5" PointX="10.5" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.Employee" Width="1.5" PointX="8.25" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.FeaturedBook" Width="1.5" PointX="5.25" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.Login" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.Notification" Width="1.5" PointX="8.25" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.OrderData" Width="1.5" PointX="8.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.OrderLog" Width="1.5" PointX="8.25" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.Order" Width="1.5" PointX="6" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.Publisher" Width="1.5" PointX="0.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.Rating" Width="1.5" PointX="8.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.Report" Width="1.5" PointX="5.25" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.Role" Width="1.5" PointX="3.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.Stock" Width="1.5" PointX="5.25" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDBModel.User" Width="1.5" PointX="6" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="ProjectDBModel.FK_Books_Authors" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Books_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Books_Publishers" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Buys_Books" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Carts_Books" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_FeaturedBooks_Books" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_OrderDatas_Books" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Ratings_Books" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Reports_Reports" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Stocks_Books" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Carts_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Orders_Coupons" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Customer_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_DeliveryMans_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_DeliveryTasks_DeliveryMans" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_DeliveryTasks_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Employees_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Logins_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Logins_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Notifications_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_OrderDatas_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_OrderLogs_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Orders_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Ratings_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDBModel.FK_Users_Roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

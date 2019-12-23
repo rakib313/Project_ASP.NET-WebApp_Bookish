@@ -1,0 +1,165 @@
+﻿@model  Project_ATP2.Models.CustomModel.CustomRakibBook
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "/Views/Shared/_HomeCustomerLayout.cshtml";
+}
+@*<script src="/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+
+<script src="/JS/paginator.js"></script>
+
+<div class="col-md-12" style="height:200px;">
+
+</div>
+
+
+<div class="col-md-3" style="background-color:slategrey; height:900px; color:white">
+    <div class="container">
+        <div class="">
+            <div class="">
+                <h5>Filter</h5>
+                <div class="row">
+                    <div class="">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for..." id="SearchStr" name="SearchStr" value="">
+                            <span class="input-group-btn">
+                                <button onclick="loadAllBooks(this.value, this)" class="btn btn-default" type="button" id="Search" name="Search">Go!</button>
+                            </span>
+
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+
+                </div><!-- /.row -->
+                <hr />
+                <div class="container">
+                    <fieldset style="float:left;" class="">
+                        Sort results by:
+                        <hr>
+                        <select name="Order-By" id='Order-By' onchange="loadAllBooks(this.value, this)" class="form-control">
+                            <option value="">--Order By--</option>
+                            <option>Price: Hight to low</option>
+                            <option>Price: Low to high</option>
+                        </select>
+                    </fieldset>
+                </div>
+                <hr />
+                <p>Language:</p>
+                <select id="Language" placeholder="select" name="Language" class="form-control" onchange="loadAllBooks(this.value, this)">
+                    <option value="">--Select Language--</option>
+                    <option>English</option>
+                    <option>Bangla</option>
+                    <option>Arabic</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="">
+                <hr />
+                <p>Publisher</p>
+                <select id="Publisher" placeholder="select" name="Publisher" class="form-control" onchange="loadAllBooks(this.value, this)">
+                    <option value="">--Select Publisher--</option>
+                    @foreach (var item in Model.PublisherList)
+                    {
+                        <option> @item.Name </option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="">
+                <hr />
+                <p>Author</p>
+                <select id="Author" placeholder="select" name="Author" class="form-control" onchange="loadAllBooks(this.value, this)">
+                    <option value="">--Select Author--</option>
+                    @foreach (var item in Model.AuthorList)
+                    {
+                        <option> @item.Name </option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="">
+                <hr />
+                <p>Category</p>
+                <select id="Category" placeholder="select" name="Category" class="form-control" onchange="loadAllBooks(this.value, this)">
+                    <option value="">--Select Author--</option>
+                    @foreach (var item in Model.CategoryList)
+                    {
+                        <option> @item.Name </option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-9" style="background-color:aliceblue" id="">
+
+    <div id="AdsGrid_Window">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>
+                    @Html.DisplayName("Title")
+                </th>
+                <th>
+                    @Html.DisplayName("Edition")
+                </th>
+                <th>
+                    @Html.DisplayName("Language")
+                </th>
+                <th>
+                    @Html.DisplayName("Price")
+                </th>
+                <th>
+                    @Html.DisplayName("Image")
+                </th>
+                <th>Options</th>
+            </tr>
+            <tbody id="AdsDiv" class="table table-bordered">
+
+            </tbody>
+        </table>
+        
+
+        <div class="nav-btn-container" id="pageNav">
+        </div>
+    </div>
+
+
+</div>
+<input type="hidden" value="@ViewBag.User_Id" id="User_Id"/>
+
+
+
+<script type="text/javascript">
+  window.onload = function() {
+   loadAllBooks('', '');
+  }
+</script>
+
+
+@*<script>
+        $(document).ready(function () {
+            var city = $("#City").val();
+            var area = $("#Area").val();
+            $("#City").click(function () {
+                $("#AdsGrid_Window").load("/Home/GetView"),
+                { city: City, area: Area }
+            });
+        });
+    </script>*@
+
+
+
+
+
+
+
+
+

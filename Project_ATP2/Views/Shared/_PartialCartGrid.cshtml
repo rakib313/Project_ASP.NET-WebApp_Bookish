@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Project_ATP2.Models.Cart>
+
+@{
+    foreach (var item in Model)
+    {
+        <div class="row table-bordered" style=" margin:;">
+            <h3 id="Comment"></h3>
+            <div class="col-md-2">
+                <a href="/Home/Details/@item.Book_Id"><img src="@item.Book.Image" alt="Image not found" width="70" height="100" /></a>
+            </div>
+            <div class="col-md-6">
+                <div style="margin-top:;">
+                    <h4>@item.Book.Title</h4>
+                    <h5>@item.Book.Author.Name</h5>
+
+                    @*<a class="glyphicon glyphicon-trash" href="/Cart/Delete/@item.Book_Id"></a>*@
+                    @*<input type="button" onclick="deleteCart()" value="@item.Book_Id" class="glyphicon glyphicon-trash"/>*@
+                    <button class="glyphicon glyphicon-trash" onclick="deleteCart(this.value, this)" value="@item.Book_Id" ></button>
+
+                    <input type="hidden" value="@item.Book_Id" />
+                    <input type="hidden" value="@item.User_Id" />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="btn-group" style="margin-top:50px">
+                    <input type="number" size="2" value="@item.QuantityOrdered" id="@item.Book_Id" autocomplete="off" min="1" max="30" style="text-align:center; max-width:50px;"  onclick="setQuantity(this.value, this)"/>
+                </div>
+                
+            </div>
+
+
+            <div class="col-md-1">
+                <div style="margin-top:50px" class="text-center">
+                    <span>@(item.QuantityOrdered * item.Book.Price)</span>
+                    <span>TK</span> 
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<script>
+    
+</script>
+

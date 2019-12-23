@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Project_ATP2.Models.Order>
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_ShippingManagerLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/jquery-1.9.0.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<h2>Dashboard</h2>
+<select class="form-control" name="OrderArea" onchange="load(this.value)">
+    <option value="none" selected disabled>--Select Area--</option>
+    @foreach (var area in ViewBag.Area)
+    {
+        <option value="@area">@area</option>
+
+    }
+</select>
+<div style="float:right;">
+    <label id="deliveryMan"></label>
+</div>
+<table class="table" id="">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("User Name")
+            </th>
+            <th>
+                @Html.DisplayName("Phone")
+            </th>
+            <th>
+                @Html.DisplayName("Area")
+            </th>
+            <th>
+                @Html.DisplayName("Address")
+            </th>
+            <th>
+                @Html.DisplayName("Process By")
+            </th>
+
+            <th>
+                @Html.DisplayName("Confirmation Date")
+            </th>
+            <th>
+                Assign
+            </th>
+        </tr>
+    </thead>
+    <tbody id="Ordertbl"></tbody>
+</table>
+
+<script>
+    var deliveryman;
+    function load(s) {
+        //alert(s);
+        $("#Ordertbl").html("");
+        $("#deliveryMan").text("");
+        $(function () {
+            $.get("GetOrderData", { s}, function (data) {
+                var row = "";
+                var del;
+                $.each(data, function (i, x) {
+                    del = x.DeliveredBy;
+                    deliveryman = del;
+                    var jsonDate = x.ModifiedDate;
+                    var d = new Date(parseInt(jsonDate.substr(6)));
+                   
+                    var date = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+
+                    row += "<tr><td>" + x.Name
+                        + "</td><td>" + x.PhoneNumber
+                        + "</td><td>" + x.Area
+                        + "</td><td>" + x.Address
+                        + "</td><td>" + x.ProcessedBy
+                        + "</td><td>" + "<lebel>" + date
+                        + "</lebel>" + "</td><td>" + "<button type='button' value="+x.Id+" class='btn'>assign</button>"
+                        + "</td></tr>"
+                });
+                $("#Ordertbl").append(row);
+                if (del == "nai") {
+                    $("#deliveryMan").text("No Delevery Man Available Now");
+                    $(".btn").prop('disabled', true);
+                }
+                else {
+                    $("#deliveryMan").text("Avilable Delevery Man - " + del);
+                }
+                
+                
+               
+            })
+
+        })
+    }
+
+    $('.table tbody').on('click', '.btn', function () {
+        var OrderId = $(this).val();
+        save(OrderId);
+        $(this).closest('tr').remove();
+    });
+
+    function save(s) {
+        //alert('clicked');
+        var del = deliveryman;
+        $.post("SaveOrder", { s,del}, function (data) {
+            alert(data);
+        })
+    }
+</script>

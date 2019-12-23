@@ -1,0 +1,81 @@
+﻿@model Project_ATP2.Models.Order
+
+@{
+    ViewBag.Title = "Order";
+    Layout = "/Views/Shared/_HomeCustomerLayout.cshtml";
+}
+
+<h2>Shipping Address</h2>
+
+<form method="post" action="/Cart/OrderConfirm" onsubmit="return validation()">
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+
+        <div class="col-md-9 table-bordered">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <hr />
+            Name:
+            <input type="text" name="Name" id="Name" value="@ViewBag.userName" required />
+            Phone Number:
+            <input type="number" name="PhoneNumber" id="PhoneNumber" value="@ViewBag.phoneNumber" required />
+            <input type="hidden" id="CouponKey" name="CouponKey" value="@ViewBag.couponKey">
+            <input type="hidden" id="User_Id" value="@ViewBag.User_Id" name="User_Id" />
+            <input type="hidden" id="Status" name="Status" value="Pending" />
+            <input type="hidden" id="AddedDate" name="AddedDate" value="@DateTime.Today" />
+            <input type="hidden" id="CouponPercentage" value="@ViewBag.couponPercentage" />
+
+            <hr />
+            <div class="">
+                Area:
+                <hr />
+                @*loadAllBooks(this.value, this)*@
+                <select id="Area" name="Area" onchange="" class="form-control" required>
+                    <option value="">--Please select Area--</option>
+                </select>
+            </div>
+
+
+
+            <hr />
+
+
+            <div class="">
+                Address:
+                <input type="text" id="Address" name="Address" value="" class="form-control" required />
+            </div>
+            <hr />
+            <div class="form-group">
+                <div class="col-md-9">
+                    <input type="submit" value="Continue To Payment" class="btn btn-default" id="btnSubmit" @*onclick="addOrder(this)"*@ />
+                </div>
+                <hr />
+            </div>
+            <hr />
+        </div>
+
+        <div class="col-md-3 table-bordered">
+            <hr />
+            <h4>Checkout summery</h4>
+            <hr />
+            <span>Subtotal: </span><span id="Subtotal"></span>
+            <span>TK.</span>
+            <hr />
+            <span>Shipping: 40TK.</span>
+            <hr />
+            <span>Total: </span><span id="Total"></span>TK.
+            <hr />
+            <span>Payable Total: </span><span id="Payable-Total"></span>TK.
+            <hr />
+
+        </div>
+    </div>
+</form>
+<hr />
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="/JS/OrderJS.js"></script>

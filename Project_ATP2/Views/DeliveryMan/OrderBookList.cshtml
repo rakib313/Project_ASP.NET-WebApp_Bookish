@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Project_ATP2.Models.OrderData>
+
+@{
+    ViewBag.Title = "OrderBookList";
+    Layout = "~/Views/Shared/_DeliveryManLayout.cshtml";
+}
+
+<h2>Order Book List</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Book Name")
+        </th>
+        <th>
+            @Html.DisplayName("Book Author")
+        </th>
+        <th>
+            @Html.DisplayName("Book Catagory")
+        </th>
+        <th>
+            @Html.DisplayName("Shelf No")
+        </th>
+
+        <th>
+            @Html.DisplayName("Quantity Ordered")
+        </th>
+        <th>
+            @Html.DisplayName("Subtotal")
+        </th>
+        <th>
+            @Html.DisplayName("Actual Price")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book.Author.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book.Category.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book.Category.Shelf)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QuantityOrdered)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subtotal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActualPrice)
+        </td>
+
+    </tr>
+    }
+
+</table>
+@Html.ActionLink("Back to Order list", "Dashboard")
